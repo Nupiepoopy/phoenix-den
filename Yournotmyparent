@@ -1,0 +1,23 @@
+var massAssign = require('mongoose-mass-assign');
+
+var UserSchema = new mongoose.Schema({
+    userid: String,
+    password: String,
+    email : String,
+    isAdmin : { type: Boolean, protect: true, default: false }
+});
+
+UserSchema.plugin(massAssign);
+
+var User = mongoose.model('User', UserSchema);
+
+/** Static method, useful for creation **/
+var user = User.massAssign(req.body);
+
+/** Instance method, useful for updating**/
+var user = new User;
+user.massAssign(req.body);
+
+/** Static massUpdate method **/
+var input = { userid: 'bhelx', isAdmin: 'true' };
+User.update({ '_id': someId }, { $set: User.massUpdate(input) }, console.log);

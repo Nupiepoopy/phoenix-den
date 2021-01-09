@@ -1,0 +1,41 @@
+npm i --save logrocket
+
+ import LogRocket from 'logrocket';
+LogRocket.init('mwbsxb/movienight');
+// This is an example script - don't forget to change it!
+LogRocket.identify('THE_USER_ID_IN_YOUR_APP', {
+  name: 'James Morrison',
+  email: 'jamesmorrison@example.com',
+
+  // Add your own custom user variables here, ie:
+  subscriptionType: 'pro'
+});
+import LogRocket from 'logrocket';
+import { applyMiddleware, createStore } from 'redux';
+
+const store = createStore(
+  reducer, // your app reducer
+
+  // our middleware should go last
+  applyMiddleware(middlewares, LogRocket.reduxMiddleware()),
+):
+LogRocket.getSessionURL(function (sessionURL) {
+  mixpanel.track('LogRocket', { sessionURL: sessionURL });
+});
+LogRocket.getSessionURL(sessionURL => {
+  Sentry.configureScope(scope => {
+    scope.setExtra("sessionURL", sessionURL);
+  });
+});
+var recordingURL;
+LogRocket.getSessionURL(function(sessionURL) {
+  recordingURL = sessionURL;
+});
+
+// example API call
+fetch(someAPICallhere, {
+  headers: {
+    // other headers
+    'X-LogRocket-URL': recordingURL,
+  },
+});

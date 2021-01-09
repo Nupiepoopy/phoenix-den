@@ -1,0 +1,20 @@
+class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+endlass UsersController < ApplicationController
+  def update
+    user = User.find(params[:id])
+    if user.update_attributes(user_params) # see below
+      redirect_to home_path
+    else
+      render :edit
+    end
+  end
+ 
+  private
+ 
+  # Require that :user be a key in the params Hash,
+  # and only accept :first, :last, and :email attributes
+  def user_params
+    params.require(:user).permit(:first, :last, :email)
+  end
+end
